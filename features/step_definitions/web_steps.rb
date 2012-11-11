@@ -86,11 +86,11 @@ When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
   select(value, :from => field)
 end
 
-When /^(?:|I )check "([^"]*)"$/ do |field|
+When /^(?:|I )check ([^"]*) checkbox$/ do |field|
   check(field)
 end
 
-When /^(?:|I )uncheck "([^"]*)"$/ do |field|
+When /^(?:|I )uncheck ([^"]*) checkbox$/ do |field|
   uncheck(field)
 end
 
@@ -102,11 +102,11 @@ When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"$/ do |path, field|
   attach_file(field, File.expand_path(path))
 end
 
-Then /^(?:|I )should see "([^"]*)"$/ do |text|
+Then /^(?:|I )should see this ([^"]*)$/ do |text|
   if page.respond_to? :should
     page.should have_content(text)
   else
-    assert page.has_content?(text)
+    assert(page.has_content?(text), "#{text}")
   end
 end
 
@@ -120,11 +120,11 @@ Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   end
 end
 
-Then /^(?:|I )should not see "([^"]*)"$/ do |text|
+Then /^(?:|I )should not see this ([^"]*)$/ do |text|
   if page.respond_to? :should
     page.should have_no_content(text)
   else
-    assert page.has_no_content?(text)
+    assert(page.has_no_content?(text), "#{text}")
   end
 end
 
@@ -252,3 +252,5 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
+
